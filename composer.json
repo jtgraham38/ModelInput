@@ -3,7 +3,7 @@
     "description": "A blade directive that automatically generates an html input for an eloquent model using the underlying table schema.",
     "type": "library",
     "require": {
-        "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
         "php": "^7.2|^8.0"
     },
     "license": "MIT",
