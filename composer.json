@@ -1,0 +1,28 @@
+{
+    "name": "jtgraham38/modelinput",
+    "description": "A blade directive that automatically generates an html input for an eloquent model using the underlying table schema.",
+    "type": "library",
+    "require": {
+        "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+        "php": "^7.2|^8.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jtgraham38\\Modelinput\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jacob Graham",
+            "email": "jtgraham38@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "jtgraham38\\modelinput\\ModelInputServiceProvider"
+            ]
+        }
+    }
+}
