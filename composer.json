@@ -9,7 +9,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Jtgraham38\\Modelinput\\": "src/"
+            "jtgraham38\\modelinput\\": "src/"
         }
     },
     "authors": [
