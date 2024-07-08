@@ -1,4 +1,5 @@
 <?php
+namespace jtgraham38\modelinput;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
