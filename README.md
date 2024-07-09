@@ -1,4 +1,4 @@
-# Laravel ModelInput
+# [Laravel ModelInput](https://php.jacob-t-graham.com/#jtgraham38/modelinput)
 
 ## The Problem
 A common feautre in web apps is forms that are used to perform CREATE, READ, UPDATE, and DELETE (CRUD) operations using the models that have been defined in the Laravel app.  In good web app design, any problems with the data the user entered on the form should be shown to the user before a request is made by the form.  HTML has validators, like _required_, _minlength=xxx_, _step=xxx_, etc.  But in order to use these properly, the programmer needs to have an intimate knowledge of the schema of their database so they know what the min length, or the maximum value, or any other validator, should be set to.  The result of this is a lot of seemingly "magic values" scattered throughout the html inputs you create.  Plus, I find writing inputs, and setting the name, type, id, and setting up the label **incredibly** repetitive and, to be honest, a bit un-laravel-y. 
