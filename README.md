@@ -100,8 +100,9 @@ These inputs come out in my app looking like this:
 
 ![image](https://github.com/jtgraham38/ModelInput/assets/88167136/401660a9-874f-4264-93a0-88f49513401f)
 
-Here is one of the generated validators in action:
+Here is are some the generated validators in action:
 
+![image](https://github.com/jtgraham38/ModelInput/assets/88167136/24ddebe4-dbe3-422c-9f43-6c15a936ce29)
 ![image](https://github.com/jtgraham38/ModelInput/assets/88167136/219255d2-45b8-4c59-aee0-57d301a2c5a4)
 
 
