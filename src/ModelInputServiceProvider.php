@@ -74,7 +74,7 @@ class ModelInputServiceProvider extends ServiceProvider
             $schema = [];
             $db = DB::connection()->getDoctrineSchemaManager();
             $doctrine_column = $db->listTableDetails($table_name)->getColumn($field);
-
+            
             //build the schema for the column
             $schema = array(
                 'type' => $doctrine_column->getType()->getName(),
@@ -88,6 +88,8 @@ class ModelInputServiceProvider extends ServiceProvider
                 'default' => $doctrine_column->getDefault(),
                 'comment' => $doctrine_column->getComment(),
             );
+
+            
 
             
             //generate string formation of attributes for input (class="", id="", etc.)
@@ -233,7 +235,7 @@ class ModelInputServiceProvider extends ServiceProvider
             if (in_array($key, ['id', 'name', 'type', 'class'])) continue;
                 
             //skip empty values
-            if (!$value) continue;
+            if (!isset($value)) continue;
 
             //add the attribute to the string
             $attributes_string .= $key . '="' . $value . '" ';
