@@ -226,7 +226,6 @@ class ModelInputServiceProvider extends ServiceProvider
         //combine the two arrays, keeping the user values when there are conflicts
         $args = array_merge($user, $directive); //records are kept from the second array passed in, so keep the ones explicitly passed in by the user
         //dump($user, $directive);
-        echo"<br>";
         //dump($args, $args);
 
         $attributes_string = '';
@@ -235,7 +234,7 @@ class ModelInputServiceProvider extends ServiceProvider
             if (in_array($key, ['id', 'name', 'type', 'class'])) continue;
                 
             //skip empty values
-            if (!isset($value)) continue;
+            if (!($value === null)) continue;
 
             //add the attribute to the string
             $attributes_string .= $key . '="' . $value . '" ';
