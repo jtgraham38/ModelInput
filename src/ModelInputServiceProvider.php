@@ -234,7 +234,7 @@ class ModelInputServiceProvider extends ServiceProvider
             if (in_array($key, ['id', 'name', 'type', 'class'])) continue;
                 
             //skip empty values
-            if (!($value === null)) continue;
+            if ($value === null) continue;
 
             //add the attribute to the string
             $attributes_string .= $key . '="' . $value . '" ';
