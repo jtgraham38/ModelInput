@@ -1,5 +1,18 @@
 # [Laravel ModelInput](https://php.jacob-t-graham.com/#jtgraham38/modelinput)
 
+##Important Note
+Currently, in order to correctly set the value on the generated input based on a model value, you must pass a php statement as a string to the directive.  This is due to the way Laravel caches views.  A better fix is in progress.  Example:
+```php
+@modelInput(User, email, [
+        ...
+        'attributes' => [
+            ...
+            'value' => "auth()->user()->email",
+            ...
+        ]
+    ])
+```
+
 ## The Problem
 A common feature in web apps is forms that are used to perform CREATE, READ, UPDATE, and DELETE (CRUD) operations using the models that have been defined in the Laravel app.  In good web app design, any problems with the data the user entered on the form should be shown to the user before a request is made by the form.  HTML has validators, like _required_, _minlength=xxx_, _step=xxx_, etc.  But in order to use these properly, the programmer needs to have an intimate knowledge of the schema of their database so they know what the min length, or the maximum value, or any other validator, should be set to.  The result of this is a lot of seemingly "magic values" scattered throughout the html inputs you create.  Plus, I find writing inputs, and setting the name, type, id, and setting up the label **incredibly** repetitive and, to be honest, a bit un-laravel-y. 
 
@@ -9,7 +22,7 @@ So, that is why I created Laravel ModelInput.  Laravel ModelInput is a blade dir
 ## An Example
 Say I have a a model, called Product.  It has three attributes: _name_, _price_, and _publish_at_.  These are pretty simple: the name of the product, the price of the product, and when the product should be publish to our site for sale.  They are created in a migration like this:
 
-```
+```php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -43,7 +56,7 @@ return new class extends Migration
 Normally, when creating these inputs so that we can create a form to fit these columns, we would need to type something like this:
 (this example uses Tailwind classes)
 
-```
+```php
 <div class="p-4">
     <label for="name_input_1" class="block">Name:</label>
     <input type="text" name="name" id="name_input_1" class="text-xl border block w-1/5 p-1" required="1" minlength="1" maxlength="255" placeholder="Enter a Name">
@@ -62,7 +75,7 @@ Normally, when creating these inputs so that we can create a form to fit these c
 
 This is a _lot_ of repeat, boilerplate code full of magic values.  ModelInput adds a blade directive that automates all this boilerplate.  With modelInput, what appears above could be created like this:
 
-```
+```php
 @modelInput(Product, name, [
     'container_classes' => 'p-4', 
     'label_classes' => 'block', 
@@ -108,7 +121,7 @@ Here are some the generated validators in action:
 
 As you can see, this vastly simpliefies the code.  Simply pass in the model name, an attribute name, and an array of arguments, and ModelInput will automatically generate inputs just like the ones you see above, with name, type, and id set up automatically, labels linked to inputs automatically, and validators set based on the schema of the underlying database table.  And, the real kicker is that the input is still directly customizable by you, the programmer.  If you want to override the step value on the price input, simply pass the _step_ key to the _attributes_ array with your desired value:
 
-```
+```php
 @modelInput(Product, price, [
     'container_classes' => 'p-4', 
     'label_classes' => 'block', 
@@ -134,7 +147,7 @@ That input will come oput like this now:
 ## Installation
 To use this library in your Laravel project, begin by adding this snippet to your composer.json:
 
-```
+```php
 "repositories": [
     {
         "type": "composer",
