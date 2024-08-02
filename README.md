@@ -1,6 +1,6 @@
 # [Laravel ModelInput](https://php.jacob-t-graham.com/#jtgraham38/modelinput)
 
-##Important Note
+## Important Note
 Currently, in order to correctly set the value on the generated input based on a model value, you must pass a php statement as a string to the directive.  This is due to the way Laravel caches views.  A better fix is in progress.  Example:
 ```php
 @modelInput(User, email, [
