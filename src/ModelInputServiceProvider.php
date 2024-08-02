@@ -99,19 +99,36 @@ class ModelInputServiceProvider extends ServiceProvider
             $id = $this->generateInputId($field, $args['id_suffix'] ?? '');
 
             //build string to echo
-            $echo_str = '
-                <div class=\'<?php echo "' . (isset($args['container_classes']) ? $args['container_classes'] : '') . '"?>\'>
-                    <label for=\'<?php echo "' . (isset($args['attributes']['id']) ? $args['attributes']['id'] : $id) . '"?>\' class=\'<?php echo "' . (isset($args['label_classes']) ? $args['label_classes'] : '') . '"?>\'><?php echo "' . (isset($args['label_text']) ? $args['label_text'] : $field) . '"?></label>
+            $echo_str = sprintf(
+                '
+                <?php
+                    //execute the programmer-specified code first...
+                    $value = %s;
+
+                    //then, below, escape the value that code returned and echo it
+                ?>
+                <div class="%s">
+                    <label for="%s" class="%s">%s</label>
                     <input 
-                        type=\'<?php echo "' . (isset($args['attributes']['type']) ? $args['attributes']['type'] : self::FIELD_TO_INPUT_TYPE_MAP[$schema['type']]) . '"?>\'
-                        name=\'<?php echo "' . (isset($args['attributes']['name']) ? $args['attributes']['name'] : $field) . '"?>\'
-                        id=\'<?php echo "' . (isset($args['attributes']['id']) ? $args['attributes']['id'] : $id) . '"?>\'
-                        class=\'<?php echo "' . (isset($args['input_classes']) ? $args['input_classes'] : '') . '"?>\'' .
-                        (isset($args['attributes']['value']) ? 'value=\'<?php echo ' . $args['attributes']['value'] . '?>\'' : '') . '
-                        <?php echo \'' . $attributes_string . '\' ?>
+                        type="%s"
+                        name="%s"
+                        id="%s"
+                        class="%s"
+                        value="<?php echo htmlspecialchars($value, ENT_QUOTES, \'UTF-8\') ?? \'\' ?>"
+                        %s
                     >
-                </div>
-            ';
+                </div>',
+                isset($args['attributes']['value']) ? $args['attributes']['value'] : 'null',
+                htmlspecialchars(isset($args['container_classes']) ? $args['container_classes'] : '', ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars(isset($args['attributes']['id']) ? $args['attributes']['id'] : $id, ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars(isset($args['label_classes']) ? $args['label_classes'] : '', ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars(isset($args['label_text']) ? $args['label_text'] : $field, ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars(isset($args['attributes']['type']) ? $args['attributes']['type'] : self::FIELD_TO_INPUT_TYPE_MAP[$schema['type']], ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars(isset($args['attributes']['name']) ? $args['attributes']['name'] : $field, ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars(isset($args['attributes']['id']) ? $args['attributes']['id'] : $id, ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars(isset($args['input_classes']) ? $args['input_classes'] : '', ENT_QUOTES, 'UTF-8'),
+                $attributes_string
+            );
 
             
             return $echo_str;
