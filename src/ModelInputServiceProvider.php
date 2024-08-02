@@ -256,7 +256,7 @@ class ModelInputServiceProvider extends ServiceProvider
             if (!isset($value) || $value === false) continue;
 
             //add the attribute to the string
-            $attributes_string .= $key . '="' . htmlspecialchars($value) . '" ';
+            $attributes_string .= htmlspecialchars($key) . '="' . htmlspecialchars($value) . '" ';
         }
 
         return $attributes_string;
