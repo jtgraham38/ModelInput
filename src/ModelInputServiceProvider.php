@@ -100,19 +100,21 @@ class ModelInputServiceProvider extends ServiceProvider
 
             //build string to echo
             $echo_str = '
-                <div class="' . (isset($args['container_classes']) ? $args['container_classes'] : '') . '">
-                    <label for="' . (isset($args['attributes']['id']) ? $args['attributes']['id'] : $id) . '" class="' . (isset($args['label_classes']) ? $args['label_classes'] : '') . '">' . (isset($args['label_text']) ? $args['label_text'] : $field) . '</label>
+                <div class=\'<?php echo "' . (isset($args['container_classes']) ? $args['container_classes'] : '') . '"?>\'>
+                    <label for=\'<?php echo "' . (isset($args['attributes']['id']) ? $args['attributes']['id'] : $id) . '"?>\' class=\'<?php echo "' . (isset($args['label_classes']) ? $args['label_classes'] : '') . '"?>\'><?php echo "' . (isset($args['label_text']) ? $args['label_text'] : $field) . '"?></label>
                     <input 
-                        type="' . (isset($args['attributes']['type']) ? $args['attributes']['type'] : self::FIELD_TO_INPUT_TYPE_MAP[$schema['type']]) . '"
-                        name="' . (isset($args['attributes']['name']) ? $args['attributes']['name'] : $field) . '"
-                        id="' . (isset($args['attributes']['id']) ? $args['attributes']['id'] : $id) . '"
-                        class="' . (isset($args['input_classes']) ? $args['input_classes'] : '') . '"
-                        ' . $attributes_string . '
+                        type=\'<?php echo "' . (isset($args['attributes']['type']) ? $args['attributes']['type'] : self::FIELD_TO_INPUT_TYPE_MAP[$schema['type']]) . '"?>\'
+                        name=\'<?php echo "' . (isset($args['attributes']['name']) ? $args['attributes']['name'] : $field) . '"?>\'
+                        id=\'<?php echo "' . (isset($args['attributes']['id']) ? $args['attributes']['id'] : $id) . '"?>\'
+                        class=\'<?php echo "' . (isset($args['input_classes']) ? $args['input_classes'] : '') . '"?>\'
+                        value=\'<?php echo ' . (isset($args['attributes']['value']) ? $args['attributes']['value'] : $schema['default']) . '?>\'
+                        <?php echo \'' . $attributes_string . '\' ?>
                     >
                 </div>
             ';
 
-            return "<?php echo '" . $echo_str . "'; ?>";
+            
+            return $echo_str;
         });
     }
 
@@ -231,13 +233,13 @@ class ModelInputServiceProvider extends ServiceProvider
         $attributes_string = '';
         foreach ($args as $key => $value) {
             //remove attrs handled separately
-            if (in_array($key, ['id', 'name', 'type', 'class'])) continue;
+            if (in_array($key, ['id', 'name', 'type', 'class', 'value'])) continue;
                 
             //skip empty values
             if (!isset($value) || $value === false) continue;
 
             //add the attribute to the string
-            $attributes_string .= $key . '="' . $value . '" ';
+            $attributes_string .= $key . '="' . htmlspecialchars($value) . '" ';
         }
 
         return $attributes_string;
