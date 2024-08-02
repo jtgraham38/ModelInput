@@ -106,8 +106,8 @@ class ModelInputServiceProvider extends ServiceProvider
                         type=\'<?php echo "' . (isset($args['attributes']['type']) ? $args['attributes']['type'] : self::FIELD_TO_INPUT_TYPE_MAP[$schema['type']]) . '"?>\'
                         name=\'<?php echo "' . (isset($args['attributes']['name']) ? $args['attributes']['name'] : $field) . '"?>\'
                         id=\'<?php echo "' . (isset($args['attributes']['id']) ? $args['attributes']['id'] : $id) . '"?>\'
-                        class=\'<?php echo "' . (isset($args['input_classes']) ? $args['input_classes'] : '') . '"?>\'
-                        value=\'<?php echo ' . (isset($args['attributes']['value']) ? $args['attributes']['value'] : $schema['default']) . '?>\'
+                        class=\'<?php echo "' . (isset($args['input_classes']) ? $args['input_classes'] : '') . '"?>\'' .
+                        (isset($args['attributes']['value']) ? 'value=\'<?php echo ' . $args['attributes']['value'] . '?>\'' : '') . '
                         <?php echo \'' . $attributes_string . '\' ?>
                     >
                 </div>
