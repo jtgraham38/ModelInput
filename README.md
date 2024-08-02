@@ -10,7 +10,7 @@ Currently, in order to correctly set the value on the generated input based on a
             'value' => "auth()->user()->email",
             ...
         ]
-    ])
+])
 ```
 
 ## The Problem
