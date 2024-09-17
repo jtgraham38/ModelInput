@@ -104,7 +104,8 @@ class ModelInputServiceProvider extends ServiceProvider
                 <?php
                     //execute the programmer-specified code first...
                     $value = %s;
-
+                    $value = htmlspecialchars($value, ENT_QUOTES, \'UTF-8\') ?? \'\';
+                    $value = filter_var($value, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
                     //then, below, escape the value that code returned and echo it
                 ?>
                 <div class="%s">
@@ -114,7 +115,7 @@ class ModelInputServiceProvider extends ServiceProvider
                         name="%s"
                         id="%s"
                         class="%s"
-                        value="<?php echo htmlspecialchars($value, ENT_QUOTES, \'UTF-8\') ?? \'\' ?>"
+                        value="<?php echo $value ?>"
                         %s
                     >
                 </div>',
